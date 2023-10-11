@@ -4,6 +4,7 @@ import json
 
 
 
+
 class FileStorage:
     """Private class attributes:
     __file_path: string - path to the JSON file (ex: file.json)
@@ -39,13 +40,15 @@ class FileStorage:
     def reload(self):
         """reload object from file jason"""
         from models.base_model import BaseModel
-        definedClasses = {'BaseModel': BaseModel}
+        from models.user import User
+        from models.state import State
+        definedClasses = {'BaseModel': BaseModel, 'User': User, 'State': State}
         try:
             with open(self.__file_path, mode='r', encoding='utf-8') as file_json:
                 obj_dict = json.load(file_json)
                 for value in obj_dict.values():
                     clsName = value['__class__']
-                    cls_obj = definedClasses[clsName]
+                    cls_obj = definedClasses.get(clsName)
                     self.new(cls_obj(**value))
         except FileNotFoundError:
             pass
