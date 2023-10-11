@@ -3,6 +3,7 @@
 import json
 
 
+
 class FileStorage:
     """Private class attributes:
     __file_path: string - path to the JSON file (ex: file.json)
@@ -10,31 +11,42 @@ class FileStorage:
 
     def __init__(self):
         """iniailize the private attributions"""
-        self.__file_path = 'cls__name__'+'.json'
+        self.__file_path = "file.json"
         self.__objects = {}
 
     def all(self):
         """ returns the dictionary __objects"""
-        return self.__objects;
+        return self.__objects
+
 
     def new(self, obj):
-        """sets in __objects the obj with key <obj class name>.id"""
-        class_name = obj.cls__name__
+        """Sets in __objects the obj with key <obj class name>.id"""
+        class_name = obj.__class__.__name__
         id = obj.id
-        key = "{0}.{1}".format(class_name, id)
-        self.__objects['key'] = obj
+        key = f"{class_name}.{id}"
+        self.__objects[key] = obj
     
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
-        with open (self.__file_path, mode='w', encoding='utf-8')  as file_json:
-            json_string = json.dumps(self.__objects)
-            file_json.write(json_string)
+
+        obj_dict = {}
+        for k, v in  self.__objects.items():
+            obj_dict[k] = v.to_dict()
+
+            with open (self.__file_path, mode='w', encoding='utf-8')  as file_json:
+                json.dump(obj_dict, file_json)
 
     def reload(self):
-        """deserializes the JSON file to __objects"""
+        """reload object from file jason"""
+        from models.base_model import BaseModel
+        definedClasses = {'BaseModel': BaseModel}
         try:
-            with open (self.__file_path, mode='r', encoding='utf-8')  as file_json:
-                json_string = file_json.read()
-                return json.loads(json_string)
+            with open(self.__file_path, mode='r', encoding='utf-8') as file_json:
+                obj_dict = json.load(file_json)
+                for value in obj_dict.values():
+                    clsName = value['__class__']
+                    cls_obj = definedClasses[clsName]
+                    self.new(cls_obj(**value))
         except FileNotFoundError:
             pass
+
