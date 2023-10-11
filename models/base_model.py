@@ -2,6 +2,7 @@
 """A module defines Base class"""
 import uuid
 from datetime import datetime
+from models import storage #import storage variable
 
 
 class BaseModel:
@@ -19,7 +20,19 @@ class BaseModel:
         """ updates the public instance attribute
         updated_at with the current datetime"""
         self.updated_at = datetime.now()
+        storage.save(self) #call save method
 
     def to_dict(self):
         """ returns a dictionary containing all
         keys/values of __dict__ of the instance"""
+        pass
+
+    def __init__(self, *args, **kwargs):
+            """Don't forget the documentation"""
+            if args:
+                 pass
+            elif kwargs: 
+                 pass
+            else:
+                storage.new(self) #call new method in case of if it’s a new instance (not from a dictionary representation)
+
