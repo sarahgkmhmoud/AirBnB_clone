@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/python3
 """A module defines Base class"""
 import uuid
@@ -23,3 +24,6 @@ class BaseModel:
     def to_dict(self):
         """ returns a dictionary containing all
         keys/values of __dict__ of the instance"""
+=======
+#!/usr/bin/python3
+>>>>>>> f840a1a3be83277a935ca46d67983b9485ee6a04

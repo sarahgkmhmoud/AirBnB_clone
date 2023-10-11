@@ -1,0 +1,38 @@
+[Start] ->[File_storage.py] __v     [Attributes]  ___>    [__file.path, __objects]  __>    [methodes] ___ [all(). new(). save(). reload().]    
+
+    |
+    v
+[ [Define Parent Class: basemodel.py] --------> [Define Child Class: User] ------------------------------------------------> [Define Child Class: State](attribute: name)import storage--------------->[Define Child Class: city(stated_id, name)]import storage----------------->[Define Child Class: amenity(name)]import storage----------->[Define Child Class: place()]import storage---------------------------------------------------------------------------------------------------------------------------------->[[Define Child Class: review(place_id,user_id, text)import storage]
+                                                                                                                                                                                                                                                                                                                    |[city_id, user_id, name, description"str", number_rooms, number_pathrooms, max_geusts, Pric_by_night, latittude, longitude, amenty_id]            
+        |                               |                            |
+        v                               v                            v
+    [Attributes]   [                                     [Attributes  Methods]
+        |                               |                            |
+        v                               v             [email, password, firstname, lastname]-> import storage
+                                                                        |[methods] -> [?]                                                                  
+[id, created at, upated at]
+        |
+        v
+    [methods]
+        |
+        v
+[init, init(args, **kwargs),
+str(), save(*call save(storage)), to_dict(), ]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[consoly.py] 
+    |
+    (v)
+[HBNBComand(cmd.cmd)] -> prompt [hbnb], emptyline & enter (reset)
+[interactive]                              
+(EOF, Quit, Help(updated through taskes), create,show, destroy, all,update(upated with inherent))
+    |
+    v
+[non interactive]
+(EOF, Quit, Help(updated through taskes)create,show, destroy, all,updatte(upated with inherent))
+     
+
+[End]
+
+Manar: Basemode(3,4), Cmd(first task)(6,7), unittest inherentclass
+Sarah: Storage(5), unittest(basemode)(1-), (inherient class with update storage), (cmd, update)
