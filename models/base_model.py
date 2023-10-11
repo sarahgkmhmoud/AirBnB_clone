@@ -10,9 +10,9 @@ class BaseModel:
     
     def __init__(self, *args, **kwargs):
         """initialize the object"""
-   
-        self.my_number = 0
-        self.name = ""
+        if args:
+            self.my_number = 0
+            self.name = ""
 
         if kwargs:
             for k, v in kwargs.items():

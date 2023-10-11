@@ -5,6 +5,6 @@ from models.base_model import BaseModel
 
 class State(BaseModel):
     """Document cls here"""
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.name = ""
+    name = ""
+    def __init__(self, **kwargs):
+        super().__init__( **kwargs)
