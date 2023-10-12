@@ -45,8 +45,9 @@ class FileStorage:
         from models.city import City
         from models.amenity import Amenity
         from models.review import Review
+        from models.place import Place
         definedClasses = {'BaseModel': BaseModel, 'User': User, 'State': State, 'City': City,
-                          'Amenity': Amenity, 'Review': Review}
+                          'Amenity': Amenity, 'Place': Place, 'Review': Review}
         try:
             with open(self.__file_path, mode='r', encoding='utf-8') as file_json:
                 obj_dict = json.load(file_json)
