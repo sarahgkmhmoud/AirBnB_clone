@@ -7,13 +7,8 @@ from datetime import datetime
 
 class BaseModel:
     """this defines all common attributes/methods for other classes"""
-    
     def __init__(self, *args, **kwargs):
         """initialize the object"""
-        if args:
-            self.my_number = 0
-            self.name = ""
-
         if kwargs:
             for k, v in kwargs.items():
                 if 'name' in kwargs:
