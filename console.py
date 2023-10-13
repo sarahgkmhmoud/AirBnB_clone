@@ -2,7 +2,7 @@
 """defines a module contains the
 entry point of the command interpreter"""
 import cmd
-from engine.file_storage import FileStorage
+from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models.user import User
 from models.city import City
