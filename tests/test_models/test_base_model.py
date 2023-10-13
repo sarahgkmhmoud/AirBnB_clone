@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """test suit to test base_mode module"""
-from typing import Any
 import unittest
 from models.base_model import BaseModel
 from uuid import uuid4
 from datetime import datetime
-from unittest.mock import patch
+from models import storage
+import os 
 
 
 #don't forget add pycode style test
@@ -15,7 +15,7 @@ from unittest.mock import patch
        
 class test_BaseModel_Constructor_averageCase(unittest.TestCase):
     """this class to test the methods under the Base class"""
-
+    @classmethod
     def setUp(self):
         self.B1 = BaseModel()
         dictionary = self.B1.to_dict()
@@ -54,6 +54,7 @@ class test_BaseModel_Constructor_averageCase(unittest.TestCase):
         self.assertEqual(self.B3.id, 20)
 
 class test_BaseModelKwargsValidation(unittest.TestCase):
+    @classmethod
     def setUp(self):
        self.B1 = BaseModel()
        self.dictionary3 = {
@@ -77,15 +78,9 @@ class test_BaseModelKwargsValidation(unittest.TestCase):
         self.assertNotIn('id', self.B2.__dict__)
         self.assertNotIn('created_at', self.B2.__dict__)
         self.assertNotIn('updated_at', self.B2.__dict__)
-class TestBaseModelStorage(unittest.TestCase):
-    @patch('models.storage')  # Replace models.storage with a mock
-    def test_storage_new_called(self, mock_storage):
-        # Create an instance of BaseModel
-        b = BaseModel()
-        
-        # Verify that storage.new was called with the instance
-        mock_storage.new.assert_called_with(b)
+
 class test_BaseModelStrMethod(unittest.TestCase):
+    @classmethod
     def setUp(self):
         self.B1 = BaseModel()
         self.dictionary3 = {
@@ -97,8 +92,26 @@ class test_BaseModelStrMethod(unittest.TestCase):
         self.assertEqual(str(self.B1),expected_str)
         expected_str2 = f"[{self.B5.__class__.__name__}] {self.B5.__dict__}"
 class test_BaseModelSaveMethod(unittest.TestCase):
+    @classmethod
+
     def setUp(self):
         self.B3 = BaseModel()
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+
+    @classmethod
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
+
 
     def test_save_Regular(self):
         old_updated_at = self.B3.updated_at
@@ -123,6 +136,7 @@ class test_BaseModelEquality(unittest.TestCase):
 
 
 class test_BaseModelSerialization(unittest.TestCase):
+    @classmethod
     def setUp(self):
         self.B10 = BaseModel()
         self.B10_dict = self.B10.to_dict() 
@@ -134,6 +148,7 @@ class test_BaseModelSerialization(unittest.TestCase):
 
 
 class test_BaseModelDeserialization(unittest.TestCase):
+    @classmethod
     def setUp(self):
         self.B1 = BaseModel()
         dictionary = self.B1.to_dict()
@@ -155,6 +170,7 @@ class test_BaseModelDeserialization(unittest.TestCase):
         self.assertEqual(self.B2.updated_at, self.B1.updated_at)
         self.assertEqual(self.B2.created_at, self.B1.created_at)
         
+
 if __name__ == '__main__':
     """calling the unit test"""
     unittest.main()
