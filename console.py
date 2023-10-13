@@ -10,11 +10,15 @@ from models.amenity import Amenity
 from models.place import Place
 from models.state import State
 from models.review import Review
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
     """A class inherit from Cmd class"""
     prompt = "(hbnb) "
+
+    classes = {"BaseModel": BaseModel, "User": User, "City": City,
+            "Place": Place, "Amenity": Amenity, "Review": Review, "State": State}
 
     def emptyline(self):
         """override the method and shouldn't execute any thing"""
@@ -30,40 +34,42 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Creates a new instance save it to JSON file prints its id"""
-        classes = {"BaseModel": BaseModel, "User": User, "City": City, "Place": Place,
-                "Amenity": Amenity, "Review": Review, "State": State}
-        for k, v in classes.items():
-            if (k == arg):
-                my_model = v()
-                print(my_model.id)
+        if (arg):
+            if (arg not in HBNBCommand.classes):
+                print("** class doesn't exist **")
+            else:
+                for k, v in HBNBCommand.classes.items():
+                    if (k == arg):
+                        my_model = v()
+                        my_model.save()
+                        print(my_model.id)
+        else:
+            print("** class name missing **")
 
     def do_show(self, args):
         """Prints the string representation of an instance
         based on the class name and id"""
-        pass
+        if (args):
+            cmd_args = args.split(' ')
+            if (cmd_args[0] not in HBNBCommand.classes):
+                print("** class doesn't exist **")
+                return
+
+            if (len(cmd_args) == 1):
+                print("** instance id missing **")
+                return
+
+            json_file_key = cmd_args[0] + '.' + cmd_args[1]
+
+            for k, v in storage.all().items():
+                if (json_file_key == k):
+                    print(v)
+        else:
+            print("** class name missing **")
+
 
     def precmd(self, line):
         """donn't forget documentaion"""
-        obj_commands = ["show"]
-        classes = ["BaseModel", "User", "City", "Place", "Amenity", "Review", "State"]
-        args = line.split(' ')
-        if (args[0] == "create"):
-            if (len(args) < 2):
-                print("** class name missing **")
-            elif (args[1] not in classes):
-                print("** class doesn't exist **")
-
-        elif (args[0] in obj_commands):
-            if (len(args) < 2):
-                print("** class name missing **")
-            elif (len(args) == 2):
-                if (args[1] not in classes):
-                     print("** class doesn't exist **")
-                else:
-                    print("** instance id missing **")
-
-            elif (len(args) >= 2 and args[1] not in classes):
-                print("** class doesn't exist **")
 
         return cmd.Cmd.precmd(self, line)
 
