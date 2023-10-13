@@ -61,12 +61,55 @@ class HBNBCommand(cmd.Cmd):
 
             json_file_key = cmd_args[0] + '.' + cmd_args[1]
 
-            for k, v in storage.all().items():
-                if (json_file_key == k):
-                    print(v)
+            try:
+                print(storage.all()[json_file_key])
+            except KeyError:
+                print("** no instance found **")
         else:
             print("** class name missing **")
 
+    def do_destroy(self, args):
+        """ Deletes an instance based on the class name and id"""
+        if (args):
+            cmd_args = args.split(' ')
+            if (cmd_args[0] not in HBNBCommand.classes):
+                print("** class doesn't exist **")
+                return
+
+            if (len(cmd_args) == 1):
+                print("** instance id missing **")
+                return
+
+            json_file_key = cmd_args[0] + '.' + cmd_args[1]
+            try:
+                del_obj_key = json_file_key
+                del storage.all()[del_obj_key]
+                storage.save()
+            except KeyError:
+                print("** no instance found **")
+
+        else:
+            print("** class name missing **")
+
+    def do_all(self, arg):
+        """Prints all string representation of all
+        instances based or not on the class name."""
+        all_objs = []
+
+        if (arg):
+            if (arg in HBNBCommand.classes):
+                for k, v in storage.all().items():
+                    cls_name = k.split(".")[0]
+                    if (cls_name == arg):
+                        all_objs.append(str(v))
+            else:
+                print("** class doesn't exist **")
+                return
+
+        else:
+            for k, v in storage.all().items():
+                all_objs.append(str(v))
+        print(all_objs)
 
     def precmd(self, line):
         """donn't forget documentaion"""
