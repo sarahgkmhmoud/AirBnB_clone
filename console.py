@@ -141,8 +141,7 @@ class HBNBCommand(cmd.Cmd):
                 if cmd_args[2] in obj_dict:
                     obj_dict[cmd_args[2]] = type(obj_dict[cmd_args[2]])(cmd_args[3])
                 else:
-                    obj_dict[cmd_args[2]] = cmd_args[3]
-                
+                    setattr(obj_dict, cmd_arg[2], cmd_arg[3]) 
                 storage.save()
         else:
             print("** class name missing **")
