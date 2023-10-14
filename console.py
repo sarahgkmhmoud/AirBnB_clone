@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
             cmd_args = args.split(' ')
             if (cmd_args[0] not in HBNBCommand.classes):
                 print("** class doesn't exist **")
-                return
+                return 
 
             if (len(cmd_args) == 1):
                 print("** instance id missing **")
@@ -117,19 +117,19 @@ class HBNBCommand(cmd.Cmd):
             cmd_args = args.split(' ')
             if (cmd_args[0] not in HBNBCommand.classes):
                 print("** class doesn't exist **")
-                return
+                return False
 
             if (len(cmd_args) == 1):
                 print("** instance id missing **")
-                return
+                return False
 
             if (len(cmd_args) == 2):
                 print("** attribute name missing **")
-                return
+                return False
 
             if (len(cmd_args) == 3):
                 print("** value missing **")
-                return
+                return False
             objs_dict_key = cmd_args[0] + '.' + cmd_args[1]
             storage_dict = storage.all()
             if (objs_dict_key not in storage_dict.keys()):
