@@ -133,13 +133,11 @@ class HBNBCommand(cmd.Cmd):
                 return
             objs_dict_key = cmd_args[0] + '.' + cmd_args[1]
             storage_dict = storage.all()
-            try:
-                obj = storage_dict[objs_dict_key]
-                setattr(obj, obj[cmd_args[3]], type(obj[cmd_args[3]])(cmd_args[4]))
+            obj = storage_dict[objs_dict_key]
+            obj_dict = obj.__dict__
+            if cmd_args[2] in obj_dict:
+                obj_dict[cmd_args[2]] = type(obj_dict[cmd_args[2]])(cmd_args[3])
                 storage.save()
-            except KeyError:
-                print("** no instance found ** ")
-
         else:
             print("** class name missing **")
 
