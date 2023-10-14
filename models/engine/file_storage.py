@@ -2,7 +2,13 @@
 """Write a class FileStorage that serializes instances to a JSON file and deserializes JSON file to instances"""
 import json
 
-
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+from models.place import Place
 
 
 class FileStorage:
@@ -39,13 +45,7 @@ class FileStorage:
 
     def reload(self):
         """reload object from file jason"""
-        from models.base_model import BaseModel
-        from models.user import User
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.review import Review
-        from models.place import Place
+
         definedClasses = {'BaseModel': BaseModel, 'User': User, 'State': State, 'City': City,
                           'Amenity': Amenity, 'Place': Place, 'Review': Review}
         try:
