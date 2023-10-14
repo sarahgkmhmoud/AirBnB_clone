@@ -51,23 +51,24 @@ class HBNBCommand(cmd.Cmd):
     based on the class name and id"""
         if (args):
             cmd_args = args.split(' ')
-            if (len(cmd_args) == 0):
-                print("** class name missing **")
-            if (cmd_args[0] not in HBNBCommand.classes):
-                print("** class doesn't exist **")
-                return
-
-            if (len(cmd_args) == 1):
-                print("** instance id missing **")
-                return
-
             json_file_key = cmd_args[0] + '.' + cmd_args[1]
 
-            if (json_file_key in storage.all()):
-                print(storage.all()[json_file_key])
-            else:
+            if (len(cmd_args) == 0):
+                print("** class name missing **")
+            elif (cmd_args[0] not in HBNBCommand.classes):
+                print("** class doesn't exist **")
+
+            elif (len(cmd_args) == 1):
+                print("** instance id missing **")
+                
+
+
+            elif (json_file_key not in storage.all()):
                 print("** no instance found **")
-                return
+                
+            else:
+                print(storage.all()[json_file_key])
+             
         else:
             print("** class name missing **")
             return
