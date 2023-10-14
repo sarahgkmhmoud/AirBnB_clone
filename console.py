@@ -111,9 +111,40 @@ class HBNBCommand(cmd.Cmd):
                 all_objs.append(str(v))
         print(all_objs)
 
+    def do_update(self, args):
+        """ Updates an instance based on the class name and
+        id by adding or updating attribute"""
+        if (args):
+            cmd_args = args.split(' ')
+            if (cmd_args[0] not in HBNBCommand.classes):
+                print("** class doesn't exist **")
+                return
+
+            if (len(cmd_args) == 1):
+                print("** instance id missing **")
+                return
+
+            if (len(cmd_args) == 2):
+                print("** attribute name missing **")
+                return
+
+            if (len(cmd_args) == 3):
+                print("** value missing **")
+                return
+            objs_dict_key = cmd_args[0] + '.' + cmd_args[1]
+            storage_dict = storage.all()
+            try:
+                obj = storage_dict[objs_dict_key]
+                setattr(obj, obj[cmd_args[3]], type(obj[cmd_args[3]])(cmd_args[4]))
+                storage.save()
+            except KeyError:
+                print("** no instance found ** ")
+
+        else:
+            print("** class name missing **")
+
     def precmd(self, line):
         """donn't forget documentaion"""
-
         return cmd.Cmd.precmd(self, line)
 
     def default(self, line):
