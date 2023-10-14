@@ -56,5 +56,5 @@ class FileStorage:
                     cls_obj = definedClasses.get(clsName)
                     self.new(cls_obj(**value))
         except FileNotFoundError:
-            pass
+            return
 
