@@ -44,7 +44,7 @@ class test_BaseModel_Constructor_averageCase(unittest.TestCase):
         self.assertEqual(self.B2.created_at, self.B1.created_at)
         self.assertEqual(self.B2.id, self.B1.id)
 
-    def test_equality_created_from__dictionart(self):
+    def test_equality_created_from__dictionary(self):
         self.assertEqual(self.B4.name, self.B5.name)
         self.assertEqual(self.B4.number, self.B5.number)
 
@@ -84,13 +84,15 @@ class test_BaseModelStrMethod(unittest.TestCase):
     def setUp(self):
         self.B1 = BaseModel()
         self.dictionary3 = {
-        '__class__': BaseModel, 'name': 'this dictionary', 'number': 98}
+        '__class__': BaseModel, 'name': 'this dictionary', 'number': 98, 'id': '20'}
         self.B5 = BaseModel(**self.dictionary3)
  
     def test_str_method(self):
         expected_str = f"[{self.B1.__class__.__name__}] ({self.B1.id}) {self.B1.__dict__}"
         self.assertEqual(str(self.B1),expected_str)
-        expected_str2 = f"[{self.B5.__class__.__name__}] {self.B5.__dict__}"
+        expected_str2 = f"[{self.B5.__class__.__name__}] (20) {self.B5.__dict__}"
+        self.assertEqual(str(self.B5),expected_str2)
+
 class test_BaseModelSaveMethod(unittest.TestCase):
     @classmethod
 
