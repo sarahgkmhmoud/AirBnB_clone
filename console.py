@@ -61,10 +61,11 @@ class HBNBCommand(cmd.Cmd):
 
             json_file_key = cmd_args[0] + '.' + cmd_args[1]
 
-            try:
+            if (json_file_key in storage.all()):
                 print(storage.all()[json_file_key])
-            except KeyError:
+            else:
                 print("** no instance found **")
+                return
         else:
             print("** class name missing **")
             return
@@ -82,12 +83,13 @@ class HBNBCommand(cmd.Cmd):
                 return
 
             json_file_key = cmd_args[0] + '.' + cmd_args[1]
-            try:
-                del_obj_key = json_file_key
-                del storage.all()[del_obj_key]
+                
+            if (json_file_key in storage.all()):
+                del storage.all()[json_file_key]
                 storage.save()
-            except KeyError:
+            else:
                 print("** no instance found **")
+                return
 
         else:
             print("** class name missing **")
