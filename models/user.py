@@ -9,4 +9,5 @@ class User(BaseModel):
     last_name = "" 
      
     def __init__(self, *args, **kwargs):
+        """document here"""
         super().__init__(*args, **kwargs)
