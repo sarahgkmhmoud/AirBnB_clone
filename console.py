@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
                 if cmd_args[2] in obj_dict:
                     obj_dict[cmd_args[2]] = type(obj_dict[cmd_args[2]])(cmd_args[3])
                 else:
-                    setattr(obj_dict, cmd_arg[2], cmd_arg[3]) 
+                    obj_dict[cmd_args[2]] = eval(cmd_args[3])
                 storage.save()
         else:
             print("** class name missing **")
@@ -152,7 +152,6 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         """documentation"""
-        print("you've entered wrong command")
         return cmd.Cmd.default(self, line)
 
     def postcmd(self, stop, line):
