@@ -67,6 +67,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
         else:
             print("** class name missing **")
+            return
 
     def do_destroy(self, args):
         """ Deletes an instance based on the class name and id"""
@@ -90,6 +91,7 @@ class HBNBCommand(cmd.Cmd):
 
         else:
             print("** class name missing **")
+            return
 
     def do_all(self, arg):
         """Prints all string representation of all
@@ -110,6 +112,7 @@ class HBNBCommand(cmd.Cmd):
             for k, v in storage.all().items():
                 all_objs.append(str(v))
         print(all_objs)
+
     def do_update(self, args):
         """ Updates an instance based on the class name and
         id by adding or updating attribute"""
@@ -117,19 +120,19 @@ class HBNBCommand(cmd.Cmd):
             cmd_args = args.split(' ')
             if (cmd_args[0] not in HBNBCommand.classes):
                 print("** class doesn't exist **")
-                return (False)
+                return
 
             if (len(cmd_args) == 1):
                 print("** instance id missing **")
-                return (False)
+                return
 
             if (len(cmd_args) == 2):
                 print("** attribute name missing **")
-                return (False)
+                return
 
             if (len(cmd_args) == 3):
                 print("** value missing **")
-                return (False)
+                return
             objs_dict_key = cmd_args[0] + '.' + cmd_args[1]
             storage_dict = storage.all()
             if (objs_dict_key not in storage_dict.keys()):
