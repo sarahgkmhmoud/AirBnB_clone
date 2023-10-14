@@ -138,10 +138,6 @@ class test_saveMethod(unittest.TestCase):
             storage.save(None)
         with self.assertRaises(TypeError):
             storage.reload(None)
-
-
- 
-
  
 if __name__ == '__main__':
     """calling the unit test"""
