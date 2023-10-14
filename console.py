@@ -144,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
                 if attribute_name in obj_dict:
                     obj_dict[attribute_name] = (type(obj_dict[attribute_name]))(attribute_value)
                 else:
-                    setattr(obj_dict, attribute_name, attribute_value)
+                    setattr(storage.all().keys, attribute_name, attribute_value)
                 storage.save()
         else:
             print("** class name missing **")
