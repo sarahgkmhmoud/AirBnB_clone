@@ -110,7 +110,6 @@ class HBNBCommand(cmd.Cmd):
             for k, v in storage.all().items():
                 all_objs.append(str(v))
         print(all_objs)
-
     def do_update(self, args):
         """ Updates an instance based on the class name and
         id by adding or updating attribute"""
@@ -138,10 +137,12 @@ class HBNBCommand(cmd.Cmd):
             else:
                 obj = storage_dict[objs_dict_key]
                 obj_dict = obj.__dict__
-                if cmd_args[2] in obj_dict:
-                    obj_dict[cmd_args[2]] = type(obj_dict[cmd_args[2]])(cmd_args[3])
+                attribute_name = cmd_args[2]
+                attribute_value = cmd_args[3]
+                if attribute_name in obj_dict:
+                    obj_dict[attribute_name] = (type(obj_dict[attribute_name]))(attribute_value)
                 else:
-                    obj_dict[cmd_args[2]] = eval(cmd_args[3])
+                    obj_dict[attribute_name] = eval(attribute_value)
                 storage.save()
         else:
             print("** class name missing **")
