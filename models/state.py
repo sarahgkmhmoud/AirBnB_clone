@@ -1,10 +1,12 @@
 #!/usr/bin/python3
-"""Document Module here"""
+"""Represent State Class"""
 from models.base_model import BaseModel
 
 
 class State(BaseModel):
-    """Document cls here"""
+    """Aspecific attribution"""
     name = ""
+
     def __init__(self, **kwargs):
-        super().__init__( **kwargs)
+        """Drevin from Base"""
+        super().__init__(**kwargs)

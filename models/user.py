@@ -1,13 +1,15 @@
 #!/usr/bin/python3
-"""Document Module here"""
+"""Represent the NewUser"""
 from models.base_model import BaseModel
+
+
 class User(BaseModel):
-    """Document cls here"""
+    """A specific attribution"""
     email = ""
     password = ""
     first_name = ""
-    last_name = "" 
-     
+    last_name = ""
+
     def __init__(self, *args, **kwargs):
-        """document here"""
+        """Drevin from Base"""
         super().__init__(*args, **kwargs)

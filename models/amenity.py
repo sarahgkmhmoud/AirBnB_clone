@@ -1,11 +1,13 @@
 #!/usr/bin/python3
-"""Document module here"""
+"""Module decribe the ameinty of place"""
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """Document class here"""
+    """Child Class"""
     name = ""
-    def __init__(self, **kwargs):
-        super().__init__( **kwargs)
 
+    def __init__(self, **kwargs):
+        """Drevin from parent"""
+
+        super().__init__(**kwargs)

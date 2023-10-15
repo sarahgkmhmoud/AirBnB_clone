@@ -1,11 +1,11 @@
-## AirBnB Clone
+# AirBnB Clone
 This project is an AirBnB clone implemented in Python. It provides a command-line interface (CLI) for managing AirBnB objects and serves as the first step towards building a full web application.
 
-# Project Overview
+## Project Overview
 
 The goal of this project is to create a command interpreter that allows users to perform various operations on AirBnB objects. These operations include creating new objects, retrieving objects from storage, performing operations on objects, updating object attributes, and destroying objects.
 
-# Features
+## Features
 
 Create new objects: Users can create new instances of objects such as User, State, City, Place, etc.
 
@@ -17,7 +17,7 @@ Update attributes: Users can update the attributes or properties of an object, e
 
 Destroy objects: Objects can be deleted from the system, allowing for the removal of unwanted entries.
 
-# Installation
+## Installation
 
 Clone the repository:
 
@@ -31,7 +31,7 @@ Install the required dependencies:
 
 pip install -r requirements.txt
 
-# Usage
+## Usage
 
 To start the command interpreter, run the following command:
 
@@ -39,19 +39,19 @@ python console.py
 
 Once the command interpreter is running, you can enter commands to perform various operations on AirBnB objects.
 
-# Testing
+## Testing
 
 To run unit tests, use the following command:
 
 python -m unittest discover tests
 
-# Acknowledgements
+## Acknowledgements
 
 This project was developed as part of the ALX Africa software engineering program.
 
 Special thanks to the peers and mentors for their guidance and support.
 
-# Conclusion
+## Conclusion
 
 This AirBnB clone project provides a command-line interface for managing AirBnB objects. It serves as a foundation for building a full web application with features such as HTML/CSS templating, database storage, API integration, and front-end development.
 

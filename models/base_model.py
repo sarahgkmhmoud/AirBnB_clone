@@ -4,7 +4,6 @@ from uuid import uuid4
 from datetime import datetime
 
 
-
 class BaseModel:
     """this defines all common attributes/methods for other classes"""
     def __init__(self, *args, **kwargs):
@@ -17,23 +16,24 @@ class BaseModel:
                     self.my_number = kwargs['my_number']
 
                 if (k == "created_at" or k == "updated_at"):
-                    setattr(self, k, datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f"))
+                    setattr(self, k,
+                            datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f"))
                 elif (k != "__class__"):
                     setattr(self, k, v)
-        
+
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            from models import storage 
+            from models import storage
             storage.new(self)
 
     def save(self):
         """ updates the public instance attribute
         updated_at with the current datetime"""
         self.updated_at = datetime.now()
-        from models import storage 
-        storage.save() #call save method
+        from models import storage
+        storage.save()
 
     def to_dict(self):
         """ returns a dictionary containing all

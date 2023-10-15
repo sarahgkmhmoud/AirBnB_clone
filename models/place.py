@@ -17,7 +17,9 @@ max_guest: integer - 0
 price_by_night: integer - 0
 latitude: float - 0.0
 longitude: float - 0.0
-amenity_ids: list of string - empty list: it will be the list of Amenity.id later"""
+amenity_ids: list of string - empty list:
+it will be the list of Amenity.id later
+"""
 
     city_id = ""
     user_id = ""
@@ -30,6 +32,7 @@ amenity_ids: list of string - empty list: it will be the list of Amenity.id late
     latitude = 0.0
     longitude = 0.0
     amenity_ids = []
-    def __init__(self, **kwargs):
-        super().__init__( **kwargs)
 
+    def __init__(self, **kwargs):
+        """Drevin from Base"""
+        super().__init__(**kwargs)
