@@ -16,35 +16,40 @@ import os
 
 
 class test_instantation(unittest.TestCase):
-    """Don't Forget the command"""
+    """test instantiation"""
     def test_with_None_argument(self):
-        """Don't forget the doc"""
+        """test with none arg"""
         with self.assertRaises(TypeError):
             FileStorage(None)
 
     def test_without_argument(self):
+        """test without arg"""
 
         self.assertIsInstance(FileStorage(), FileStorage)
 
     def test_Attribution_type(self):
+        """test attr type"""
         self.assertEqual(type(storage._FileStorage__file_path), str)
         self.assertEqual(type(storage._FileStorage__objects), dict)
 
     def test_Attribution_value(self):
+        """test attr value"""
         self.assertEqual(storage._FileStorage__file_path, "file.json")
 
 
 class test_allMethod(unittest.TestCase):
-    """Don't forget the document"""
-
+    """test all method"""
     def test_with_None_argumentAll(self):
+        """test with none arg"""
         with self.assertRaises(TypeError):
             storage.all(None)
 
     def test_AllMethod(self):
+        """test all method"""
         self.assertEqual(type(storage.all()), dict)
 
     def test_allMethodwithNew(self):
+        """test all method with new"""
         B = BaseModel()
         NewUser = User()
         NewState = State()
@@ -70,8 +75,10 @@ class test_allMethod(unittest.TestCase):
 
 
 class test_saveMethod(unittest.TestCase):
+    """test save method"""
     @classmethod
     def setUp(self):
+        """setup method"""
         try:
             os.rename("file.json", "tmp")
         except IOError:
@@ -79,6 +86,7 @@ class test_saveMethod(unittest.TestCase):
 
     @classmethod
     def tearDown(self):
+        """tear down method"""
         try:
             os.remove("file.json")
         except IOError:
@@ -89,6 +97,7 @@ class test_saveMethod(unittest.TestCase):
             pass
 
     def test_savemethod(self):
+        """test save method"""
         B = BaseModel()
         B.save()
         NewUser = User()
@@ -116,6 +125,7 @@ class test_saveMethod(unittest.TestCase):
             self.assertIn("Review." + NewReview.id, save_text)
 
     def test_Reloadmethod(self):
+        """test reload method"""
 
         B = BaseModel()
         NewUser = User()
@@ -136,6 +146,7 @@ class test_saveMethod(unittest.TestCase):
         self.assertIn("Review." + NewReview.id, objs)
 
     def test_checkRaises(self):
+        """test check raises"""
         with self.assertRaises(TypeError):
             storage.new(BaseModel(), 1)
         with self.assertRaises(AttributeError):
