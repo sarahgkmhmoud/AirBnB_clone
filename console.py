@@ -156,13 +156,32 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class name missing **")
 
+    def do_count(self, arg):
+        """ retrieve the number of instances of a class"""
+        count = 0
+        if (arg in HBNBCommand.classes):
+            for k, v in storage.all().items():
+                cls_name = k.split(".")[0]
+                if (cls_name == arg):
+                    count += 1
+        print(count)
+
     def precmd(self, line):
-        """donn't forget documentaion"""
-        return cmd.Cmd.precmd(self, line)
+        """parsing the command before execution"""
+        if ("." in line and "(" in line and ")" in line):
+            parse_line = line.split(".")
+            class_name = parse_line[0]
+            parse2 = parse_line[1].split("(")
+            command = parse2[0]
+            parse3 = parse2[1].split(")")
+            obj_id = parse3[0]
+            command_line = command + " " + class_name + " " + obj_id
+            return command_line
+        else:
+            return line
 
     def default(self, line):
         """documentation"""
-        print("you've entered wrong command")
         return cmd.Cmd.default(self, line)
 
     def postcmd(self, stop, line):
