@@ -1,77 +1,75 @@
 #!/usr/bin/python3
-"""test suit to test base_mode module"""
+"""Test suite to test the base_model module"""
+
 import unittest
 from models.base_model import BaseModel
-from uuid import uuid4
 from datetime import datetime
-from models import storage
-import os 
+import os
 
 
-#don't forget add pycode style test
-#don't forget add Doc style test
-#don't forget documented the test models
+class TestBaseModelConstructorAverageCase(unittest.TestCase):
+    """This class tests the methods under the Base class"""
 
-       
-class test_BaseModel_Constructor_averageCase(unittest.TestCase):
-    """this class to test the methods under the Base class"""
     @classmethod
-    def setUp(self):
-        self.B1 = BaseModel()
-        dictionary = self.B1.to_dict()
-        self.B2 = BaseModel(** dictionary)
-        self.dictionary2 = self.B2.to_dict()
-        self.B3 = BaseModel()
-        self.B3.name = 'assign directly'
-        self.B3.my_number = 90
-        self.B3.id = 20
-        self.dictionary3 = {
-        '__class__': BaseModel, 'name': 'this dictionary', 'number': 98}
-        self.B4 = BaseModel(**self.dictionary3)
-        self.dictionary4 = self.B4.to_dict()
-        self.B5 = BaseModel(**self.dictionary3)
+    def setUp(cls):
+        cls.B1 = BaseModel()
+        dictionary = cls.B1.to_dict()
+        cls.B2 = BaseModel(**dictionary)
+        cls.dictionary2 = cls.B2.to_dict()
+        cls.B3 = BaseModel()
+        cls.B3.name = 'assign directly'
+        cls.B3.my_number = 90
+        cls.B3.id = 20
+        cls.dictionary3 = {
+            '__class__': BaseModel, 'name': 'this dictionary', 'number': 98}
+        cls.B4 = BaseModel(**cls.dictionary3)
+        cls.dictionary4 = cls.B4.to_dict()
+        cls.B5 = BaseModel(**cls.dictionary3)
 
- 
-
-    def test_initialize_Regular(self):
+    def test_initialize_regular(self):
+        """Test if BaseModel is initialized with the correct types"""
         self.assertIs(type(self.B1.id), str)
         self.assertIs(type(self.B1.created_at), datetime)
         self.assertIs(type(self.B1.updated_at), datetime)
-    
+
     def test_equality_created_new_instances(self):
+        """Test equality between newly created instances"""
         self.assertIsNot(self.B1, self.B2)
         self.assertEqual(self.B2.updated_at, self.B1.updated_at)
         self.assertEqual(self.B2.created_at, self.B1.created_at)
         self.assertEqual(self.B2.id, self.B1.id)
 
-    def test_equality_created_from__dictionary(self):
+    def test_equality_created_from_dictionary(self):
+        """Test equality between instances created from dictionaries"""
         self.assertEqual(self.B4.name, self.B5.name)
         self.assertEqual(self.B4.number, self.B5.number)
 
     def test_equality_created_directly(self):
+        """Test equality for instances created directly"""
         self.assertEqual(self.B3.name, 'assign directly')
         self.assertEqual(self.B3.my_number, 90)
         self.assertEqual(self.B3.id, 20)
 
-class test_BaseModelKwargsValidation(unittest.TestCase):
+
+class TestBaseModelKwargsValidation(unittest.TestCase):
     @classmethod
-    def setUp(self):
-       self.B1 = BaseModel()
-       self.dictionary3 = {
-        '__class__': BaseModel, 'name': 'this dictionary', 'number': 98}
-       self.B2 = BaseModel(** self.dictionary3)
-    
-    def test_kwargsNotExist(self):
+    def setUp(cls):
+        cls.B1 = BaseModel()
+        cls.dictionary3 = {
+            '__class__': BaseModel, 'name': 'this dictionary', 'number': 98}
+        cls.B2 = BaseModel(**cls.dictionary3)
+
+    def test_kwargs_not_exist(self):
+        """Test if attributes not present in kwargs are set"""
         self.assertNotIn('__class__', self.B1.__dict__)
         self.assertNotIn('name', self.B1.__dict__)
         self.assertNotIn('number', self.B1.__dict__)
         self.assertIn('id', self.B1.__dict__)
         self.assertIn('created_at', self.B1.__dict__)
         self.assertIn('updated_at', self.B1.__dict__)
-    
 
-    def test_kwargsExist(self):
-
+    def test_kwargs_exist(self):
+        """Test if attributes in kwargs are set"""
         self.assertNotIn('__class__', self.B2.__dict__)
         self.assertIn('name', self.B2.__dict__)
         self.assertIn('number', self.B2.__dict__)
@@ -79,32 +77,34 @@ class test_BaseModelKwargsValidation(unittest.TestCase):
         self.assertNotIn('created_at', self.B2.__dict__)
         self.assertNotIn('updated_at', self.B2.__dict__)
 
-class test_BaseModelStrMethod(unittest.TestCase):
+
+class TestBaseModelStrMethod(unittest.TestCase):
     @classmethod
-    def setUp(self):
-        self.B1 = BaseModel()
-        self.dictionary3 = {
-        '__class__': BaseModel, 'name': 'this dictionary', 'number': 98, 'id': '20'}
-        self.B5 = BaseModel(**self.dictionary3)
- 
+    def setUp(cls):
+        cls.B1 = BaseModel()
+        cls.dictionary3 = {
+            '__class__': BaseModel, 'name': 'this dictionary', 'number': 98,
+            'id': '20'}
+        cls.B5 = BaseModel(**cls.dictionary3)
+
     def test_str_method(self):
-        expected_str = f"[{self.B1.__class__.__name__}] ({self.B1.id}) {self.B1.__dict__}"
-        self.assertEqual(str(self.B1),expected_str)
-        expected_str2 = f"[{self.B5.__class__.__name__}] (20) {self.B5.__dict__}"
-        self.assertEqual(str(self.B5),expected_str2)
+        s = f"[{self.B1.__class__.__name__}] ({self.B1.id}) {self.B1.__dict__}"
+        self.assertEqual(str(self.B1), s)
+        s2 = f"[{self.B5.__class__.__name__}] (20) {self.B5.__dict__}"
+        self.assertEqual(str(self.B5), s2)
 
-class test_BaseModelSaveMethod(unittest.TestCase):
+
+class TestBaseModelSaveMethod(unittest.TestCase):
     @classmethod
-
-    def setUp(self):
-        self.B3 = BaseModel()
+    def setUp(cls):
+        cls.B3 = BaseModel()
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
     @classmethod
-    def tearDown(self):
+    def tearDown(cls):
         try:
             os.remove("file.json")
         except IOError:
@@ -114,22 +114,23 @@ class test_BaseModelSaveMethod(unittest.TestCase):
         except IOError:
             pass
 
-
-    def test_save_Regular(self):
+    def test_save_regular(self):
         old_updated_at = self.B3.updated_at
         self.B3.name = 'second module'
         self.B3.save()
         self.assertNotEqual(self.B3.created_at, self.B3.updated_at)
         self.assertNotEqual(old_updated_at, self.B3.updated_at)
 
-class test_BaseModelEquality(unittest.TestCase):
+
+class TestBaseModelEquality(unittest.TestCase):
     def test_equality_between_equal_instances(self):
         B6 = BaseModel()
         B7 = BaseModel()
         self.assertNotEqual(B6, B7)
+
     def test_inequality_between_different_instances(self):
         dictionary5 = {
-        '__class__': BaseModel, 'name': 'this dictionary', 'number': 98}
+            '__class__': BaseModel, 'name': 'this dictionary', 'number': 98}
 
         B8 = BaseModel(**dictionary5)
         B9 = BaseModel(**dictionary5)
@@ -137,28 +138,30 @@ class test_BaseModelEquality(unittest.TestCase):
         self.assertNotEqual(B8, B9)
 
 
-class test_BaseModelSerialization(unittest.TestCase):
+class TestBaseModelSerialization(unittest.TestCase):
     @classmethod
-    def setUp(self):
-        self.B10 = BaseModel()
-        self.B10_dict = self.B10.to_dict() 
+    def setUp(cls):
+        cls.B10 = BaseModel()
+        cls.B10_dict = cls.B10.to_dict()
+
     def test_serialization_to_dict(self):
         self.assertIsInstance(self.B10_dict, dict)
-    def test_formatDateTime(self):
+
+    def test_format_datetime(self):
         self.assertIs(type(self.B10_dict['created_at']), str)
         self.assertIs(type(self.B10_dict['updated_at']), str)
 
 
-class test_BaseModelDeserialization(unittest.TestCase):
+class TestBaseModelDeserialization(unittest.TestCase):
     @classmethod
-    def setUp(self):
-        self.B1 = BaseModel()
-        dictionary = self.B1.to_dict()
-        self.B2 = BaseModel(** dictionary)
-    
+    def setUp(cls):
+        cls.B1 = BaseModel()
+        dictionary = cls.B1.to_dict()
+        cls.B2 = BaseModel(**dictionary)
+
     def test_desrialization_to_dic(self):
         self.assertIsNot(self.B1, self.B2)
-    
+
     def test_check_type_desrialization(self):
         self.assertIs(type(self.B1.id), str)
         self.assertIs(type(self.B1.created_at), datetime)
@@ -166,14 +169,13 @@ class test_BaseModelDeserialization(unittest.TestCase):
         self.assertIs(type(self.B2.id), str)
         self.assertIs(type(self.B2.created_at), datetime)
         self.assertIs(type(self.B2.updated_at), datetime)
-    
+
     def test_check_value_equality(self):
         self.assertEqual(self.B2.id, self.B1.id)
         self.assertEqual(self.B2.updated_at, self.B1.updated_at)
         self.assertEqual(self.B2.created_at, self.B1.created_at)
-        
+
 
 if __name__ == '__main__':
-    """calling the unit test"""
+    """Calling the unit test"""
     unittest.main()
-   
