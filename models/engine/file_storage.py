@@ -46,17 +46,13 @@ class FileStorage:
 
     def reload(self):
         """reload object from file jason"""
-
-        definedClasses = {'BaseModel': BaseModel, 'User': User,
-                          'State': State, 'City': City,
-                          'Amenity': Amenity, 'Place': Place, 'Review': Review}
         try:
             with open(FileStorage.__file_path, mode='r',
                       encoding='utf-8') as file_json:
                 obj_dict = json.load(file_json)
                 for value in obj_dict.values():
                     clsName = value['__class__']
-                    cls_obj = definedClasses.get(clsName)
-                    self.new(cls_obj(**value))
+                    del value["__class__"]
+                    self.new(eval(clsName)(**value))
         except FileNotFoundError:
             return
