@@ -4,6 +4,7 @@ import unittest
 from models.city import City
 from models.state import State
 from models.amenity import Amenity
+from models.base_model import BaseModel
 from uuid import uuid4
 from datetime import datetime
 from models import storage
