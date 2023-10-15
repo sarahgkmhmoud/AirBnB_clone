@@ -9,15 +9,17 @@ from datetime import datetime
 from models import storage
 import os
 
-class test_Review_Constructor_averageCase(unittest.TestCase):
-    """this class to test the methods under the Amenity class"""
+
+class TestReviewConstructorAverageCase(unittest.TestCase):
+    """This class tests the methods under the Review class"""
+
     @classmethod
     def setUp(self):
         self.R1 = Review()
         self.P1 = Place()
         self.U1 = User()
         dictionary = self.R1.to_dict()
-        self.R2 = Review(** dictionary)
+        self.R2 = Review(**dictionary)
         self.dictionary2 = self.R2.to_dict()
         self.R3 = Review()
         self.R3.text = 'Nice'
@@ -25,26 +27,25 @@ class test_Review_Constructor_averageCase(unittest.TestCase):
         self.R3.user_id = self.U1.id
         self.R3.id = 20
         self.dictionary3 = {
-                             '__class__': Review,
-                             'text': 'Nice'
-                             }
+            '__class__': Review,
+            'text': 'Nice'
+        }
         self.R4 = Review(**self.dictionary3)
         self.dictionary4 = self.R4.to_dict()
         self.R5 = Review(**self.dictionary3)
 
-
-    def test_initialize_ReviewRegular(self):
+    def test_initialize_review_regular(self):
         self.assertIs(type(self.R1.id), str)
         self.assertIs(type(self.R1.created_at), datetime)
         self.assertIs(type(self.R1.updated_at), datetime)
 
-    def test_equality_created_new_Reviewinstances(self):
+    def test_equality_created_new_review_instances(self):
         self.assertIsNot(self.R1, self.R2)
         self.assertEqual(self.R2.updated_at, self.R1.updated_at)
         self.assertEqual(self.R2.created_at, self.R1.created_at)
         self.assertEqual(self.R2.id, self.R1.id)
 
-    def test_equality_created_from__Reviewdictionary(self):
+    def test_equality_created_from_review_dictionary(self):
         self.assertEqual(self.R4.text, self.R5.text)
 
     def test_equality_created_directly(self):
@@ -53,47 +54,49 @@ class test_Review_Constructor_averageCase(unittest.TestCase):
         self.assertEqual(self.R3.place_id, self.P1.id)
         self.assertEqual(self.R3.user_id, self.U1.id)
 
-class test_RevieKwargsValidation(unittest.TestCase):
+
+class TestReviewKwargsValidation(unittest.TestCase):
     @classmethod
     def setUp(self):
-       self.R1 = Review()
-       self.dictionary3 = {
-        '__class__': Review, 'text': 'Bad'}
-       self.R2 = Review(** self.dictionary3)
+        self.R1 = Review()
+        self.dictionary3 = {
+            '__class__': Review, 'text': 'Bad'
+        }
+        self.R2 = Review(**self.dictionary3)
 
-    def test_kwargsNotExist(self):
+    def test_kwargs_not_exist(self):
         self.assertNotIn('__class__', self.R1.__dict__)
         self.assertNotIn('text', self.R1.__dict__)
         self.assertIn('id', self.R1.__dict__)
         self.assertIn('created_at', self.R1.__dict__)
         self.assertIn('updated_at', self.R1.__dict__)
 
-
-    def test_kwargsExist(self):
-
+    def test_kwargs_exist(self):
         self.assertNotIn('__class__', self.R2.__dict__)
         self.assertIn('text', self.R2.__dict__)
         self.assertNotIn('id', self.R2.__dict__)
         self.assertNotIn('created_at', self.R2.__dict__)
         self.assertNotIn('updated_at', self.R2.__dict__)
 
-class test_CityStrMethod(unittest.TestCase):
+
+class TestReviewStrMethod(unittest.TestCase):
     @classmethod
     def setUp(self):
         self.R1 = Review()
         self.dictionary3 = {
-        '__class__': Review, 'text': 'Good', 'id': '20'}
+            '__class__': Review, 'text': 'Good', 'id': '20'
+        }
         self.R5 = Review(**self.dictionary3)
 
     def test_str_method(self):
-        expected_str = f"[{self.R1.__class__.__name__}] ({self.R1.id}) {self.R1.__dict__}"
-        self.assertEqual(str(self.R1),expected_str)
-        expected_str2 = f"[{self.R5.__class__.__name__}] (20) {self.R5.__dict__}"
-        self.assertEqual(str(self.R5),expected_str2)
+        s = f"[{self.R1.__class__.__name__}] ({self.R1.id}) {self.R1.__dict__}"
+        self.assertEqual(str(self.R1), s)
+        s2 = f"[{self.R5.__class__.__name__}] (20) {self.R5.__dict__}"
+        self.assertEqual(str(self.R5), s2)
 
-class test_ReviewSaveMethod(unittest.TestCase):
+
+class TestReviewSaveMethod(unittest.TestCase):
     @classmethod
-
     def setUp(self):
         self.R3 = Review()
         try:
@@ -112,22 +115,24 @@ class test_ReviewSaveMethod(unittest.TestCase):
         except IOError:
             pass
 
-
-    def test_save_Regular(self):
+    def test_save_regular(self):
         old_updated_at = self.R3.updated_at
         self.R3.text = 'Nice'
         self.R3.save()
         self.assertNotEqual(self.R3.created_at, self.R3.updated_at)
         self.assertNotEqual(old_updated_at, self.R3.updated_at)
 
-class test_ReviewEquality(unittest.TestCase):
+
+class TestReviewEquality(unittest.TestCase):
     def test_equality_between_equal_instances(self):
         R6 = Review()
         R7 = Review()
         self.assertNotEqual(R6, R7)
+
     def test_inequality_between_different_instances(self):
         dictionary5 = {
-        '__class__': Review, 'text': 'nice'}
+            '__class__': Review, 'text': 'nice'
+        }
 
         R8 = Review(**dictionary5)
         R9 = Review(**dictionary5)
@@ -135,29 +140,31 @@ class test_ReviewEquality(unittest.TestCase):
         self.assertNotEqual(R8, R9)
 
 
-class test_ReviewSerialization(unittest.TestCase):
+class TestReviewSerialization(unittest.TestCase):
     @classmethod
     def setUp(self):
         self.R10 = Review()
         self.R10_dict = self.R10.to_dict()
+
     def test_serialization_to_dict(self):
         self.assertIsInstance(self.R10_dict, dict)
-    def test_formatDateTime(self):
+
+    def test_format_date_time(self):
         self.assertIs(type(self.R10_dict['created_at']), str)
         self.assertIs(type(self.R10_dict['updated_at']), str)
 
 
-class test_ReviewDeserialization(unittest.TestCase):
+class TestReviewDeserialization(unittest.TestCase):
     @classmethod
     def setUp(self):
         self.R1 = Review()
         dictionary = self.R1.to_dict()
-        self.R2 = Review(** dictionary)
+        self.R2 = Review(**dictionary)
 
-    def test_desrialization_to_dic(self):
+    def test_deserialization_to_dict(self):
         self.assertIsNot(self.R1, self.R2)
 
-    def test_check_type_desrialization(self):
+    def test_check_type_deserialization(self):
         self.assertIs(type(self.R1.id), str)
         self.assertIs(type(self.R1.created_at), datetime)
         self.assertIs(type(self.R1.updated_at), datetime)
@@ -172,5 +179,5 @@ class test_ReviewDeserialization(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    """calling the unit test"""
+    """Calling the unit test"""
     unittest.main()
