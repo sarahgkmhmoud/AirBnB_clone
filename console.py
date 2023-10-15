@@ -174,8 +174,12 @@ class HBNBCommand(cmd.Cmd):
             parse2 = parse_line[1].split("(")
             command = parse2[0]
             parse3 = parse2[1].split(")")
-            obj_id = parse3[0]
-            command_line = command + " " + class_name + " " + obj_id
+            parse4 = parse3[0].split(",")
+            obj_id = parse4[0]
+            attr_name = parse4[1]
+            attr_value = parse4[2]
+            command_line = command + " " + class_name + " " + obj_id + " "
+            command_line = command_line + attr_name + " " + attr_value
             return command_line
         else:
             return line
