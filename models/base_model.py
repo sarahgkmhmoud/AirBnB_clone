@@ -2,6 +2,7 @@
 """A module defines Base class"""
 from uuid import uuid4
 from datetime import datetime
+import models
 
 
 class BaseModel:
@@ -23,15 +24,13 @@ class BaseModel:
                 elif (k != "__class__"):
                     setattr(self, k, v)
         else:
-            from models import storage
-            storage.new(self)
+            models.storage.new(self)
 
     def save(self):
         """ updates the public instance attribute
         updated_at with the current datetime"""
         self.updated_at = datetime.today()
-        from models import storage
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """ returns a dictionary containing all
