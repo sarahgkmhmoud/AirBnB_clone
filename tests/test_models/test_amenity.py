@@ -35,7 +35,7 @@ class test_Amenity_Constructor_averageCase(unittest.TestCase):
 
 
     def test_initialize_AmenityRegular(self):
-        self.assertIs(type(self.U1.id), str)
+        self.assertIs(type(self.A1.id), str)
         self.assertIs(type(self.A1.created_at), datetime)
         self.assertIs(type(self.A1.updated_at), datetime)
 
@@ -58,45 +58,45 @@ class test_AmenityKwargsValidation(unittest.TestCase):
        self.A1 = Amenity()
        self.dictionary3 = {
         '__class__': Amenity, 'name': 'this dictionary', 'number': 98}
-       self.B2 = BaseModel(** self.dictionary3)
+       self.A2 = Amenity(** self.dictionary3)
 
     def test_kwargsNotExist(self):
-        self.assertNotIn('__class__', self.B1.__dict__)
-        self.assertNotIn('name', self.B1.__dict__)
-        self.assertNotIn('number', self.B1.__dict__)
-        self.assertIn('id', self.B1.__dict__)
-        self.assertIn('created_at', self.B1.__dict__)
-        self.assertIn('updated_at', self.B1.__dict__)
+        self.assertNotIn('__class__', self.A1.__dict__)
+        self.assertNotIn('name', self.A1.__dict__)
+        self.assertNotIn('number', self.A1.__dict__)
+        self.assertIn('id', self.A1.__dict__)
+        self.assertIn('created_at', self.A1.__dict__)
+        self.assertIn('updated_at', self.A1.__dict__)
 
 
     def test_kwargsExist(self):
 
-        self.assertNotIn('__class__', self.B2.__dict__)
-        self.assertIn('name', self.B2.__dict__)
-        self.assertIn('number', self.B2.__dict__)
-        self.assertNotIn('id', self.B2.__dict__)
-        self.assertNotIn('created_at', self.B2.__dict__)
-        self.assertNotIn('updated_at', self.B2.__dict__)
+        self.assertNotIn('__class__', self.A2.__dict__)
+        self.assertIn('name', self.A2.__dict__)
+        self.assertIn('number', self.A2.__dict__)
+        self.assertNotIn('id', self.A2.__dict__)
+        self.assertNotIn('created_at', self.A2.__dict__)
+        self.assertNotIn('updated_at', self.A2.__dict__)
 
-class test_BaseModelStrMethod(unittest.TestCase):
+class test_AmenityStrMethod(unittest.TestCase):
     @classmethod
     def setUp(self):
-        self.B1 = BaseModel()
+        self.A1 = Amenity()
         self.dictionary3 = {
-        '__class__': BaseModel, 'name': 'this dictionary', 'number': 98, 'id': '20'}
-        self.B5 = BaseModel(**self.dictionary3)
+        '__class__': Amenity, 'name': 'free Wifi', 'id': '20'}
+        self.A5 = Amenity(**self.dictionary3)
 
     def test_str_method(self):
-        expected_str = f"[{self.B1.__class__.__name__}] ({self.B1.id}) {self.B1.__dict__}"
-        self.assertEqual(str(self.B1),expected_str)
-        expected_str2 = f"[{self.B5.__class__.__name__}] (20) {self.B5.__dict__}"
-        self.assertEqual(str(self.B5),expected_str2)
+        expected_str = f"[{self.A1.__class__.__name__}] ({self.A1.id}) {self.A1.__dict__}"
+        self.assertEqual(str(self.A1),expected_str)
+        expected_str2 = f"[{self.A5.__class__.__name__}] (20) {self.A5.__dict__}"
+        self.assertEqual(str(self.A5),expected_str2)
 
-class test_BaseModelSaveMethod(unittest.TestCase):
+class test_AmenitySaveMethod(unittest.TestCase):
     @classmethod
 
     def setUp(self):
-        self.B3 = BaseModel()
+        self.A3 = Amenity()
         try:
             os.rename("file.json", "tmp")
         except IOError:
@@ -115,61 +115,61 @@ class test_BaseModelSaveMethod(unittest.TestCase):
 
 
     def test_save_Regular(self):
-        old_updated_at = self.B3.updated_at
-        self.B3.name = 'second module'
-        self.B3.save()
-        self.assertNotEqual(self.B3.created_at, self.B3.updated_at)
-        self.assertNotEqual(old_updated_at, self.B3.updated_at)
+        old_updated_at = self.A3.updated_at
+        self.A3.name = 'Air condition'
+        self.A3.save()
+        self.assertNotEqual(self.A3.created_at, self.A3.updated_at)
+        self.assertNotEqual(old_updated_at, self.A3.updated_at)
 
-class test_BaseModelEquality(unittest.TestCase):
+class test_AmenityEquality(unittest.TestCase):
     def test_equality_between_equal_instances(self):
-        B6 = BaseModel()
-        B7 = BaseModel()
-        self.assertNotEqual(B6, B7)
+        A6 = Amenity()
+        A7 = Amenity()
+        self.assertNotEqual(A6, A7)
     def test_inequality_between_different_instances(self):
         dictionary5 = {
-        '__class__': BaseModel, 'name': 'this dictionary', 'number': 98}
+        '__class__': Amenity, 'name': 'Garden'}
 
-        B8 = BaseModel(**dictionary5)
-        B9 = BaseModel(**dictionary5)
+        A8 = Amenity(**dictionary5)
+        A9 = Amenity(**dictionary5)
 
-        self.assertNotEqual(B8, B9)
+        self.assertNotEqual(A8, A9)
 
 
-class test_BaseModelSerialization(unittest.TestCase):
+class test_AmenitySerialization(unittest.TestCase):
     @classmethod
     def setUp(self):
-        self.B10 = BaseModel()
-        self.B10_dict = self.B10.to_dict()
+        self.A10 = Amenity()
+        self.A10_dict = self.A10.to_dict()
     def test_serialization_to_dict(self):
-        self.assertIsInstance(self.B10_dict, dict)
+        self.assertIsInstance(self.A10_dict, dict)
     def test_formatDateTime(self):
-        self.assertIs(type(self.B10_dict['created_at']), str)
-        self.assertIs(type(self.B10_dict['updated_at']), str)
+        self.assertIs(type(self.A10_dict['created_at']), str)
+        self.assertIs(type(self.A10_dict['updated_at']), str)
 
 
-class test_BaseModelDeserialization(unittest.TestCase):
+class test_AmenityDeserialization(unittest.TestCase):
     @classmethod
     def setUp(self):
-        self.B1 = BaseModel()
-        dictionary = self.B1.to_dict()
-        self.B2 = BaseModel(** dictionary)
+        self.A1 = Amenity()
+        dictionary = self.A1.to_dict()
+        self.A2 = Amenity(** dictionary)
 
     def test_desrialization_to_dic(self):
-        self.assertIsNot(self.B1, self.B2)
+        self.assertIsNot(self.A1, self.A2)
 
     def test_check_type_desrialization(self):
-        self.assertIs(type(self.B1.id), str)
-        self.assertIs(type(self.B1.created_at), datetime)
-        self.assertIs(type(self.B1.updated_at), datetime)
-        self.assertIs(type(self.B2.id), str)
-        self.assertIs(type(self.B2.created_at), datetime)
-        self.assertIs(type(self.B2.updated_at), datetime)
+        self.assertIs(type(self.A1.id), str)
+        self.assertIs(type(self.A1.created_at), datetime)
+        self.assertIs(type(self.A1.updated_at), datetime)
+        self.assertIs(type(self.A2.id), str)
+        self.assertIs(type(self.A2.created_at), datetime)
+        self.assertIs(type(self.A2.updated_at), datetime)
 
     def test_check_value_equality(self):
-        self.assertEqual(self.B2.id, self.B1.id)
-        self.assertEqual(self.B2.updated_at, self.B1.updated_at)
-        self.assertEqual(self.B2.created_at, self.B1.created_at)
+        self.assertEqual(self.A2.id, self.A1.id)
+        self.assertEqual(self.A2.updated_at, self.A1.updated_at)
+        self.assertEqual(self.A2.created_at, self.A1.created_at)
 
 
 if __name__ == '__main__':

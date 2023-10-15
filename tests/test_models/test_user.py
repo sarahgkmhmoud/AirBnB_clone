@@ -123,7 +123,7 @@ class test_UserSaveMethod(unittest.TestCase):
 
     def test_save_RegularUser(self):
         old_updated_at = self.U3.updated_at
-        self.U3.name = 'second module'
+        self.U3.first_name = 'Madiha'
         self.U3.save()
         self.assertNotEqual(self.U3.created_at, self.U3.updated_at)
         self.assertNotEqual(old_updated_at, self.U3.updated_at)

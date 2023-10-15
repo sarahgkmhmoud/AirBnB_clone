@@ -80,4 +80,134 @@ class test_place_Constructor_averageCase(unittest.TestCase):
         self.assertEqual(self.P3.longitude, 3245.8)
         self.assertEqual(self.P3.amenity_ids,[2, 4, 5, 6, 9])
 
+class test_PlacelKwargsValidation(unittest.TestCase):
+    @classmethod
+    def setUp(self):
+        self.P1 = Place()
+        dictionary = self.P1.to_dict()
+        self.P2 = Place(** dictionary)   
 
+    def test_UserkwargsNotExist(self):
+        self.assertNotIn('__class__', self.P1.__dict__)
+        self.assertNotIn('first_name', self.P1.__dict__)
+        self.assertNotIn('last_name', self.P1.__dict__)
+        self.assertIn('id', self.P1.__dict__)
+        self.assertIn('created_at', self.P1.__dict__)
+        self.assertIn('updated_at', self.P1.__dict__)
+
+    def test_UserkwargsExist(self):
+
+        self.assertNotIn('__class__', self.P2.__dict__)
+        self.assertNotIn('first_name', self.P2.__dict__)
+        self.assertNotIn('last_name', self.P2.__dict__)
+        self.assertIn('id', self.P2.__dict__)
+        self.assertIn('created_at', self.P2.__dict__)
+        self.assertIn('updated_at', self.P2.__dict__)
+
+    class test_PlacelStrMethod(unittest.TestCase):
+        @classmethod
+        def setUp(self):
+            self.P1 = Place()
+            self.dictionary3 = {
+                             '__class__': Place,
+                             'name': 'Villa',
+                             'number_rooms': 9,
+                             'max_gues': 20,
+                             'price_by_night': 300,
+                             'latitude':3405.98890,
+                             'longitude': 98080.9889,
+                             'amenity_ids': [20, 30, 39]
+                             }
+            self.P4 = Place(**self.dictionary3)
+        def test_str_method(self):
+            expected_str = f"[{self.P1.__class__.__name__}] ({self.U1.id}) {self.U1.__dict__}"
+            self.assertEqual(str(self.P1),expected_str)
+            expected_str2 = f"[{self.P4.__class__.__name__}] (20) {self.U4.__dict__}"
+            self.assertEqual(str(self.P4),expected_str2)
+
+class test_PlaceSaveMethod(unittest.TestCase):
+    @classmethod
+    def setUp(self):
+        self.P3 = Place()
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+
+    @classmethod
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
+
+    def test_save_RegularUser(self):
+        old_updated_at = self.P3.updated_at
+        self.P3.name = 'Halaib w Shalateen'
+        self.P3.save()
+        self.assertNotEqual(self.P3.created_at, self.P3.updated_at)
+        self.assertNotEqual(old_updated_at, self.P3.updated_at)
+
+class test_PlaceEquality(unittest.TestCase):
+    def test_equality_between_equal_Placeinstances(self):
+        P6 = Place()
+        P7 = Place()
+        self.assertNotEqual(P6, P7)
+
+    def test_inequality_between_different_Placeinstances(self):
+        dictionary5 = {
+                             '__class__': Place,
+                             'name': 'Villa',
+                             'number_rooms': 9,
+                             'max_gues': 20,
+                             'price_by_night': 300,
+                             'latitude':3405.98890,
+                             'longitude': 98080.9889,
+                             'amenity_ids': [20, 30, 39]
+                             }
+        P8 = User(**dictionary5)
+        P9 = User(**dictionary5)
+
+        self.assertNotEqual(P8, P9)
+
+class test_PlaceSerialization(unittest.TestCase):
+    @classmethod
+    def setUp(self):
+        self.P10 = User()
+        self.P10_dict = self.P10.to_dict() 
+    def test_Placeserialization_to_dict(self):
+        self.assertIsInstance(self.P10_dict, dict)
+    def test_PlaceformatDateTime(self):
+        self.assertIs(type(self.P10_dict['created_at']), str)
+        self.assertIs(type(self.P10_dict['updated_at']), str)
+
+class test_BaseModelDeserialization(unittest.TestCase):
+    @classmethod
+    def setUp(self):
+        self.P1 = User()
+        dictionary = self.P1.to_dict()
+        self.P2 = User(** dictionary)
+    
+    def test_desrialization_to_dic(self):
+        self.assertIsNot(self.P1, self.P2)
+    
+    def test_check_type_desrialization(self):
+        self.assertIs(type(self.P1.id), str)
+        self.assertIs(type(self.P1.created_at), datetime)
+        self.assertIs(type(self.P1.updated_at), datetime)
+        self.assertIs(type(self.P2.id), str)
+        self.assertIs(type(self.P2.created_at), datetime)
+        self.assertIs(type(self.P2.updated_at), datetime)
+    
+    def test_check_value_equality(self):
+        self.assertEqual(self.P2.id, self.P1.id)
+        self.assertEqual(self.P2.updated_at, self.P1.updated_at)
+        self.assertEqual(self.P2.created_at, self.P1.created_at)
+
+if __name__ == '__main__':
+    """calling the unit test"""
+    unittest.main() 
