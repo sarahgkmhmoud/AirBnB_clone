@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-#!/usr/bin/python3
 """Document Module here"""
 from models.base_model import BaseModel
 from models.state import State
