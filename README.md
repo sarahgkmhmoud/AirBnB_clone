@@ -56,3 +56,8 @@ Special thanks to the peers and mentors for their guidance and support.
 This AirBnB clone project provides a command-line interface for managing AirBnB objects. It serves as a foundation for building a full web application with features such as HTML/CSS templating, database storage, API integration, and front-end development.
 
 Thank you for using our AirBnB clone!
+
+## Author
+
+Manar Elsaid khalil <elsaidmanar@gmail.com>
+sarah gad elkareem <sarahgad91@gmai.com>
