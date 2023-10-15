@@ -43,7 +43,7 @@ Once the command interpreter is running, you can enter commands to perform vario
 
 To run unit tests, use the following command:
 
-python -m unittest discover tests
+python3 -m unittest discover tests
 
 ## Acknowledgements
 

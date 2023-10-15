@@ -20,7 +20,8 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
 
     classes = {"BaseModel": BaseModel, "User": User, "City": City,
-            "Place": Place, "Amenity": Amenity, "Review": Review, "State": State}
+               "Place": Place, "Amenity": Amenity, "Review": Review,
+               "State": State}
 
     def emptyline(self):
         """override the method and shouldn't execute any thing"""
@@ -78,14 +79,14 @@ class HBNBCommand(cmd.Cmd):
             cmd_args = args.split(' ')
             if (cmd_args[0] not in HBNBCommand.classes):
                 print("** class doesn't exist **")
-                return 
+                return
 
             if (len(cmd_args) == 1):
                 print("** instance id missing **")
                 return
 
             json_file_key = cmd_args[0] + '.' + cmd_args[1]
-                
+
             if (json_file_key in storage.all()):
                 del storage.all()[json_file_key]
                 storage.save()
@@ -147,7 +148,8 @@ class HBNBCommand(cmd.Cmd):
                 attribute_name = cmd_args[2]
                 attribute_value = cmd_args[3]
                 if attribute_name in obj_dict:
-                    obj_dict[attribute_name] = (type(obj_dict[attribute_name]))(attribute_value)
+                    obj_dict[attribute_name] = (type(obj_dict[attribute_name]))
+                    (attribute_value)
                 else:
                     obj_dict[attribute_name] = eval(attribute_value)
                 storage.save()
