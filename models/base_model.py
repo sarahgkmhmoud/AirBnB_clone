@@ -8,6 +8,9 @@ class BaseModel:
     """this defines all common attributes/methods for other classes"""
     def __init__(self, *args, **kwargs):
         """initialize the object"""
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
         if kwargs:
             for k, v in kwargs.items():
                 if 'name' in kwargs:
@@ -22,9 +25,7 @@ class BaseModel:
                     setattr(self, k, v)
 
         else:
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
+          
             from models import storage
             storage.new(self)
 
