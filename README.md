@@ -1,4 +1,5 @@
 # AirBnB Clone
+
 This project is an AirBnB clone implemented in Python. It provides a command-line interface (CLI) for managing AirBnB objects and serves as the first step towards building a full web application.
 
 ## Project Overview
