@@ -12,6 +12,7 @@ class TestUserConstructorAverageCase(unittest.TestCase):
 
     @classmethod
     def setUp(cls):
+        """setup method"""
         cls.U1 = User()
         dictionary = cls.U1.to_dict()
         cls.U2 = User(**dictionary)
@@ -32,23 +33,27 @@ class TestUserConstructorAverageCase(unittest.TestCase):
         cls.U5 = User(**cls.dictionary3)
 
     def test_initialize_user_regular(self):
+        """test initialization"""
         self.assertIs(type(self.U1.id), str)
         self.assertIs(type(self.U1.created_at), datetime)
         self.assertIs(type(self.U1.updated_at), datetime)
 
     def test_equality_created_new_user_instances(self):
+        """test_equality_created_new_user_instances"""
         self.assertIsNot(self.U1, self.U2)
         self.assertEqual(self.U2.updated_at, self.U1.updated_at)
         self.assertEqual(self.U2.created_at, self.U1.created_at)
         self.assertEqual(self.U2.id, self.U1.id)
 
     def test_equality_created_from_user_dictionary(self):
+        """test_equality_created_from_user_dictionary"""
         self.assertEqual(self.U4.first_name, self.U5.first_name)
         self.assertEqual(self.U4.last_name, self.U5.last_name)
         self.assertEqual(self.U4.email, self.U5.email)
         self.assertEqual(self.U4.password, self.U5.password)
 
     def test_equality_created_directly(self):
+        """test_equality_created_directly"""
         self.assertEqual(self.U3.first_name, 'Manar')
         self.assertEqual(self.U3.last_name, 'Elsaid')
         self.assertEqual(self.U3.id, 20)
@@ -57,13 +62,16 @@ class TestUserConstructorAverageCase(unittest.TestCase):
 
 
 class TestUserKwargsValidation(unittest.TestCase):
+    """test kwargs"""
     @classmethod
     def setUp(cls):
+        """setup method"""
         cls.U1 = User()
         dictionary = cls.U1.to_dict()
         cls.U2 = User(**dictionary)
 
     def test_user_kwargs_not_exist(self):
+        """test kwargs exist"""
         self.assertNotIn('__class__', self.U1.__dict__)
         self.assertNotIn('first_name', self.U1.__dict__)
         self.assertNotIn('last_name', self.U1.__dict__)
@@ -72,6 +80,7 @@ class TestUserKwargsValidation(unittest.TestCase):
         self.assertIn('updated_at', self.U1.__dict__)
 
     def test_user_kwargs_exist(self):
+        """test kwargs not exist"""
         self.assertNotIn('__class__', self.U2.__dict__)
         self.assertNotIn('first_name', self.U2.__dict__)
         self.assertNotIn('last_name', self.U2.__dict__)
@@ -81,8 +90,10 @@ class TestUserKwargsValidation(unittest.TestCase):
 
 
 class TestUserStrMethod(unittest.TestCase):
+    """test str method"""
     @classmethod
     def setUp(cls):
+        """setup method"""
         cls.U1 = User()
         cls.dictionary3 = {
             '__class__': User,
@@ -95,6 +106,7 @@ class TestUserStrMethod(unittest.TestCase):
         cls.U4 = User(**cls.dictionary3)
 
     def test_str_method(self):
+        """test str method"""
         s = f"[{self.U1.__class__.__name__}] ({self.U1.id}) {self.U1.__dict__}"
         self.assertEqual(str(self.U1), s)
         s2 = f"[{self.U4.__class__.__name__}] (20) {self.U4.__dict__}"
@@ -102,8 +114,10 @@ class TestUserStrMethod(unittest.TestCase):
 
 
 class TestUserSaveMethod(unittest.TestCase):
+    """test save method"""
     @classmethod
     def setUp(cls):
+        """setup method"""
         cls.U3 = User()
         try:
             os.rename("file.json", "tmp")
@@ -112,6 +126,7 @@ class TestUserSaveMethod(unittest.TestCase):
 
     @classmethod
     def tearDown(cls):
+        """tear down method"""
         try:
             os.remove("file.json")
         except IOError:
@@ -122,6 +137,7 @@ class TestUserSaveMethod(unittest.TestCase):
             pass
 
     def test_save_regular_user(self):
+        """test save method"""
         old_updated_at = self.U3.updated_at
         self.U3.first_name = 'Madiha'
         self.U3.save()
@@ -130,12 +146,15 @@ class TestUserSaveMethod(unittest.TestCase):
 
 
 class TestUserEquality(unittest.TestCase):
+    """test equality"""
     def test_equality_between_equal_user_instances(self):
+        """test_equality_between_equal_user_instances"""
         U6 = User()
         U7 = User()
         self.assertNotEqual(U6, U7)
 
     def test_inequality_between_different_user_instances(self):
+        """test_inequality_between_different_user_instances"""
         dictionary5 = {
             '__class__': User,
             'first_name': 'Sarah',
@@ -149,30 +168,38 @@ class TestUserEquality(unittest.TestCase):
 
 
 class TestUserSerialization(unittest.TestCase):
+    """test serialization"""
     @classmethod
     def setUp(cls):
+        """setup method"""
         cls.U10 = User()
         cls.U10_dict = cls.U10.to_dict()
 
     def test_user_serialization_to_dict(self):
+        """test ser. to dict"""
         self.assertIsInstance(self.U10_dict, dict)
 
     def test_user_format_date_time(self):
+        """test date time format"""
         self.assertIs(type(self.U10_dict['created_at']), str)
         self.assertIs(type(self.U10_dict['updated_at']), str)
 
 
 class TestUserDeserialization(unittest.TestCase):
+    """test deser."""
     @classmethod
     def setUp(cls):
+        """setup method"""
         cls.U1 = User()
         dictionary = cls.U1.to_dict()
         cls.U2 = User(**dictionary)
 
     def test_deserialization_to_dict(self):
+        """test deser. to dict"""
         self.assertIsNot(self.U1, self.U2)
 
     def test_check_type_deserialization(self):
+        """test type"""
         self.assertIs(type(self.U1.id), str)
         self.assertIs(type(self.U1.created_at), datetime)
         self.assertIs(type(self.U1.updated_at), datetime)
@@ -181,6 +208,7 @@ class TestUserDeserialization(unittest.TestCase):
         self.assertIs(type(self.U2.updated_at), datetime)
 
     def test_check_value_equality(self):
+        """value equality"""
         self.assertEqual(self.U2.id, self.U1.id)
         self.assertEqual(self.U2.updated_at, self.U1.updated_at)
         self.assertEqual(self.U2.created_at, self.U1.created_at)

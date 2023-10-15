@@ -15,6 +15,7 @@ class TestPlaceConstructorAverageCase(unittest.TestCase):
 
     @classmethod
     def setUp(cls):
+        """setup method"""
         cls.P1 = Place()
         dictionary = cls.P1.to_dict()
         cls.P2 = Place(**dictionary)
@@ -86,8 +87,10 @@ class TestPlaceConstructorAverageCase(unittest.TestCase):
 
 
 class TestPlaceKwargsValidation(unittest.TestCase):
+    """test kwargs validation"""
     @classmethod
     def setUp(cls):
+        """setup method"""
         cls.P1 = Place()
         dictionary = cls.P1.to_dict()
         cls.P2 = Place(**dictionary)
@@ -110,8 +113,10 @@ class TestPlaceKwargsValidation(unittest.TestCase):
 
 
 class TestPlaceStrMethod(unittest.TestCase):
+    """test str method"""
     @classmethod
     def setUp(cls):
+        """setup method"""
         cls.P1 = Place()
         cls.dictionary3 = {
             '__class__': Place,
@@ -127,6 +132,7 @@ class TestPlaceStrMethod(unittest.TestCase):
         cls.P4 = Place(**cls.dictionary3)
 
     def test_place_str_method(self):
+        """test str method"""
         s = f"[{self.P1.__class__.__name__}] ({self.P1.id}) {self.P1.__dict__}"
         self.assertEqual(str(self.P1), s)
         s2 = f"[{self.P4.__class__.__name__}] (20) {self.P4.__dict__}"
@@ -134,8 +140,10 @@ class TestPlaceStrMethod(unittest.TestCase):
 
 
 class TestPlaceSaveMethod(unittest.TestCase):
+    """save method test"""
     @classmethod
     def setUp(cls):
+        """setup method for test class"""
         cls.P3 = Place()
         try:
             os.rename("file.json", "tmp")
@@ -144,6 +152,7 @@ class TestPlaceSaveMethod(unittest.TestCase):
 
     @classmethod
     def tearDown(cls):
+        """teardown method"""
         try:
             os.remove("file.json")
         except IOError:
@@ -154,6 +163,7 @@ class TestPlaceSaveMethod(unittest.TestCase):
             pass
 
     def test_place_save_regular_user(self):
+        """save regular user"""
         old_updated_at = self.P3.updated_at
         self.P3.name = 'Halaib w Shalateen'
         self.P3.save()
@@ -162,12 +172,15 @@ class TestPlaceSaveMethod(unittest.TestCase):
 
 
 class TestPlaceEquality(unittest.TestCase):
+    """place equality"""
     def test_equality_between_equal_place_instances(self):
+        """test equal instances"""
         P6 = Place()
         P7 = Place()
         self.assertNotEqual(P6, P7)
 
     def test_inequality_between_different_place_instances(self):
+        """different instances"""
         dictionary5 = {
             '__class__': Place,
             'name': 'Villa',
@@ -185,30 +198,38 @@ class TestPlaceEquality(unittest.TestCase):
 
 
 class TestPlaceSerialization(unittest.TestCase):
+    """serialization"""
     @classmethod
     def setUp(cls):
+        """setup method"""
         cls.P10 = User()
         cls.P10_dict = cls.P10.to_dict()
 
     def test_place_serialization_to_dict(self):
+        """to dict method"""
         self.assertIsInstance(self.P10_dict, dict)
 
     def test_place_format_date_time(self):
+        """date time format"""
         self.assertIs(type(self.P10_dict['created_at']), str)
         self.assertIs(type(self.P10_dict['updated_at']), str)
 
 
 class TestBaseModelDeserialization(unittest.TestCase):
+    """deserialization"""
     @classmethod
     def setUp(cls):
+        """setup method"""
         cls.P1 = User()
         dictionary = cls.P1.to_dict()
         cls.P2 = User(**dictionary)
 
     def test_deserialization_to_dict(self):
+        """to dict method"""
         self.assertIsNot(self.P1, self.P2)
 
     def test_check_type_deserialization(self):
+        """type after deserialization  method"""
         self.assertIs(type(self.P1.id), str)
         self.assertIs(type(self.P1.created_at), datetime)
         self.assertIs(type(self.P1.updated_at), datetime)
@@ -217,6 +238,7 @@ class TestBaseModelDeserialization(unittest.TestCase):
         self.assertIs(type(self.P2.updated_at), datetime)
 
     def test_check_value_equality(self):
+        """check value equality"""
         self.assertEqual(self.P2.id, self.P1.id)
         self.assertEqual(self.P2.updated_at, self.P1.updated_at)
         self.assertEqual(self.P2.created_at, self.P1.created_at)
