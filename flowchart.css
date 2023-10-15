@@ -36,3 +36,8 @@ str(), save(*call save(storage)), to_dict(), ]
 
 Manar: Basemode(3,4), Cmd(first task)(6,7), unittest inherentclass
 Sarah: Storage(5), unittest(basemode)(1-), (inherient class with update storage), (cmd, update)
+
+if 'name' in kwargs:
+self.name = kwargs['name']
+if 'my_number' in kwargs:
+self.my_number = kwargs['my_number']
