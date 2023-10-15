@@ -75,9 +75,9 @@ class TestStateKwargsValidation(unittest.TestCase):
         """test kwargs exist"""
         self.assertNotIn('__class__', self.S2.__dict__)
         self.assertIn('name', self.S2.__dict__)
-        self.assertNotIn('id', self.S2.__dict__)
-        self.assertNotIn('created_at', self.S2.__dict__)
-        self.assertNotIn('updated_at', self.S2.__dict__)
+        self.assertIn('id', self.S2.__dict__)
+        self.assertIn('created_at', self.S2.__dict__)
+        self.assertIn('updated_at', self.S2.__dict__)
 
 
 class TestStateStrMethod(unittest.TestCase):

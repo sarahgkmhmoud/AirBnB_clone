@@ -74,9 +74,9 @@ class TestAmenityKwargsValidation(unittest.TestCase):
         self.assertNotIn('__class__', self.A2.__dict__)
         self.assertIn('name', self.A2.__dict__)
         self.assertIn('number', self.A2.__dict__)
-        self.assertNotIn('id', self.A2.__dict__)
-        self.assertNotIn('created_at', self.A2.__dict__)
-        self.assertNotIn('updated_at', self.A2.__dict__)
+        self.assertIn('id', self.A2.__dict__)
+        self.assertIn('created_at', self.A2.__dict__)
+        self.assertIn('updated_at', self.A2.__dict__)
 
 
 class TestAmenityStrMethod(unittest.TestCase):

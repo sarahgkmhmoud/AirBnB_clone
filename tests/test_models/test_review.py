@@ -83,9 +83,9 @@ class TestReviewKwargsValidation(unittest.TestCase):
         """test kwargs"""
         self.assertNotIn('__class__', self.R2.__dict__)
         self.assertIn('text', self.R2.__dict__)
-        self.assertNotIn('id', self.R2.__dict__)
-        self.assertNotIn('created_at', self.R2.__dict__)
-        self.assertNotIn('updated_at', self.R2.__dict__)
+        self.assertIn('id', self.R2.__dict__)
+        self.assertIn('created_at', self.R2.__dict__)
+        self.assertIn('updated_at', self.R2.__dict__)
 
 
 class TestReviewStrMethod(unittest.TestCase):
