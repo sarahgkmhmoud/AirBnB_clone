@@ -8,4 +8,3 @@ class City(BaseModel):
     """Public attribution on city class"""
     state_id = ""
     name = ""
-
