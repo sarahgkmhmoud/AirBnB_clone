@@ -39,8 +39,7 @@ class FileStorage:
         for k, v in self.__objects.items():
             obj_dict[k] = v.to_dict()
 
-            with open(self.__file_path, mode='w',
-                      encoding='utf-8') as file_json:
+            with open(self.__file_path, mode='w') as file_json:
                 json.dump(obj_dict, file_json)
 
     def reload(self):
@@ -50,8 +49,7 @@ class FileStorage:
                           'State': State, 'City': City,
                           'Amenity': Amenity, 'Place': Place, 'Review': Review}
         try:
-            with open(self.__file_path, mode='r',
-                      encoding='utf-8') as file_json:
+            with open(self.__file_path) as file_json:
                 obj_dict = json.load(file_json)
                 for value in obj_dict.values():
                     clsName = value['__class__']
