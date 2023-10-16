@@ -6,5 +6,6 @@ from models.state import State
 
 class City(BaseModel):
     """Public attribution on city class"""
-    name = ""
     state_id = ""
+    name = ""
+
