@@ -181,7 +181,7 @@ class HBNBCommand(cmd.Cmd):
             return line
 
     def default(self, line):
-        """documentation"""
+        """default function"""
         return cmd.Cmd.default(self, line)
 
     def postcmd(self, stop, line):
