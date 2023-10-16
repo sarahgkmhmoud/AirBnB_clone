@@ -12,7 +12,3 @@ text: string - empty string"""
     palce_id = ""
     user_id = ""
     text = ""
-
-    def __init__(self, **kwargs):
-        """Drevin from Parent"""
-        super().__init__(**kwargs)

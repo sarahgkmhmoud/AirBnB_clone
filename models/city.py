@@ -8,7 +8,3 @@ class City(BaseModel):
     """Public attribution on city class"""
     name = ""
     state_id = ""
-
-    def __init__(self, **kwargs):
-        """Drevin from Parent"""
-        super().__init__(**kwargs)

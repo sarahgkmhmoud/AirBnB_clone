@@ -32,7 +32,3 @@ it will be the list of Amenity.id later
     latitude = 0.0
     longitude = 0.0
     amenity_ids = []
-
-    def __init__(self, **kwargs):
-        """Drevin from Base"""
-        super().__init__(**kwargs)
