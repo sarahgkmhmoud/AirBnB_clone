@@ -73,6 +73,30 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
+    # def do_destroy(self, args):
+    #     """ Deletes an instance based on the class name and id"""
+    #     if (args):
+    #         cmd_args = args.split(' ')
+    #         if (cmd_args[0] not in HBNBCommand.classes):
+    #             print("** class doesn't exist **")
+    #             return
+
+    #         if (len(cmd_args) == 1):
+    #             print("** instance id missing **")
+    #             return
+
+    #         json_file_key = cmd_args[0] + '.' + cmd_args[1]
+
+    #         if (json_file_key in storage.all()):
+    #             del storage.all()[json_file_key]
+    #             storage.save()
+    #         else:
+    #             print("** no instance found **")
+    #             return
+
+    #     else:
+    #         print("** class name missing **")
+    #         return
     def do_destroy(self, args):
         """ Deletes an instance based on the class name and id"""
         if (args):
@@ -87,8 +111,10 @@ class HBNBCommand(cmd.Cmd):
 
             json_file_key = cmd_args[0] + '.' + cmd_args[1]
 
-            if (json_file_key in storage.all()):
-                del storage.all()[json_file_key]
+            storage_dict = storage.all()
+
+            if json_file_key in storage_dict:
+                del storage_dict[json_file_key]
                 storage.save()
             else:
                 print("** no instance found **")
@@ -97,6 +123,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class name missing **")
             return
+
 
     def do_all(self, arg):
         """Prints all string representation of all
