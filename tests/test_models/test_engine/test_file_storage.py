@@ -155,7 +155,14 @@ class test_saveMethod(unittest.TestCase):
             storage.save(None)
         with self.assertRaises(TypeError):
             storage.reload(None)
-
+    
+    def test_reload(self):
+        fs = FileStorage()
+        fs.new(BaseModel())
+        fs.save()
+        fs.reload()
+        objs = fs.all()
+        self.assertTrue(len(objs) > 0)
 
 if __name__ == '__main__':
     """calling the unit test"""
