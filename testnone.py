@@ -1,11 +1,15 @@
 #!/usr/bin/python3
-from models.review import Review
+"""Doc
+"""
+from models.engine.file_storage import *
+from models.engine.file_storage import FileStorage
 
-print(type(Review.place_id) is str)
-print(Review.place_id == "")
 
-print(type(Review.user_id) is str)
-print(Review.user_id == "")
+class FileStorage(FileStorage):
+    """Doc
+    """
 
-print(type(Review.text) is str)
-print(Review.text == "")
+    def reload(self):
+        """DOC
+        """
+        pass
