@@ -1,13 +1,11 @@
 #!/usr/bin/python3
-"""Doc
-"""
-from models.base_model import *
-from models.base_model import BaseModel
+from models.review import Review
 
+print(type(Review.place_id) is str)
+print(Review.place_id == "")
 
-class BaseModel(BaseModel):
-    """Doc
-    """
+print(type(Review.user_id) is str)
+print(Review.user_id == "")
 
-    def save(self):
-        self.updated_at = datetime.utcnow()
+print(type(Review.text) is str)
+print(Review.text == "")
