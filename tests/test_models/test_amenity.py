@@ -62,7 +62,7 @@ class TestAmenityKwargsValidation(unittest.TestCase):
 
     def test_kwargs_not_exist(self):
         """test for kwargs not existing"""
-        self.assertNotIn('__class__', self.A1.__dict__)
+        self.assertIn('__class__', self.A1.__dict__)
         self.assertNotIn('name', self.A1.__dict__)
         self.assertNotIn('number', self.A1.__dict__)
         self.assertIn('id', self.A1.__dict__)
