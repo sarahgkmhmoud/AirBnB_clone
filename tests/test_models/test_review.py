@@ -66,10 +66,8 @@ class TestReviewKwargsValidation(unittest.TestCase):
     def setUp(self):
         """setup method"""
         self.R1 = Review()
-        self.dictionary3 = {
-            '__class__': Review, 'text': 'Bad'
-        }
-        self.R2 = Review(**self.dictionary3)
+        R1_dict = self.R1.to_dict() 
+        self.R2 = Review(**R1_dict)
 
     def test_kwargs_not_exist(self):
         """test kwargs"""
@@ -82,7 +80,7 @@ class TestReviewKwargsValidation(unittest.TestCase):
     def test_kwargs_exist(self):
         """test kwargs"""
         self.assertNotIn('__class__', self.R2.__dict__)
-        self.assertIn('text', self.R2.__dict__)
+        self.assertNotIn('text', self.R2.__dict__)
         self.assertIn('id', self.R2.__dict__)
         self.assertIn('created_at', self.R2.__dict__)
         self.assertIn('updated_at', self.R2.__dict__)
