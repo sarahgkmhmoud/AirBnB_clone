@@ -8,6 +8,7 @@ class BaseModel:
     """this defines all common attributes/methods for other classes"""
     def __init__(self, *args, **kwargs):
         """initialize the object"""
+        format_iso = "%Y-%m-%dT%H:%M:%S.%f"
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
@@ -19,7 +20,7 @@ class BaseModel:
                 # elif (k != "__class__"):
                 #     setattr(self, k, v)
                 if k == "created_at" or k == "updated_at":
-                    self.__dict__[k] = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
+                    self.__dict__[k] = datetime.strptime(v, format_iso)
                 else:
                     self.__dict__[k] = v
         else:
@@ -48,7 +49,6 @@ class BaseModel:
         instance_dict["updated_at"] = self.updated_at.isoformat()
         instance_dict["__class__"] = self.__class__.__name__
         return instance_dict
-
 
     def __str__(self):
         """returns the object data"""
