@@ -74,14 +74,14 @@ class TestReviewKwargsValidation(unittest.TestCase):
     def test_kwargs_not_exist(self):
         """test kwargs"""
         self.assertNotIn('__class__', self.R1.__dict__)
-        self.assertNotIn('text', self.R1.__dict__)
+        self.assertIn('text', self.R1.__dict__)
         self.assertIn('id', self.R1.__dict__)
         self.assertIn('created_at', self.R1.__dict__)
         self.assertIn('updated_at', self.R1.__dict__)
 
     def test_kwargs_exist(self):
         """test kwargs"""
-        self.assertIn('__class__', self.R2.__dict__)
+        self.assertNotIn('__class__', self.R2.__dict__)
         self.assertIn('text', self.R2.__dict__)
         self.assertIn('id', self.R2.__dict__)
         self.assertIn('created_at', self.R2.__dict__)
