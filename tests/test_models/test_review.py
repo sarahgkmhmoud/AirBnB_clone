@@ -205,6 +205,11 @@ class TestReviewDeserialization(unittest.TestCase):
         self.assertEqual(self.R2.updated_at, self.R1.updated_at)
         self.assertEqual(self.R2.created_at, self.R1.created_at)
 
+    def test_args_unused(self):
+        rv = Review(None)
+        self.assertNotIn(None, rv.__dict__.values())
+
+
 
 if __name__ == '__main__':
     """Calling the unit test"""
