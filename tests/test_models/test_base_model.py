@@ -58,9 +58,7 @@ class TestBaseModelKwargsValidation(unittest.TestCase):
     def setUp(cls):
         """setup method"""
         cls.B1 = BaseModel()
-        cls.dictionary3 = {
-            '__class__': BaseModel, 'name': 'this dictionary', 'number': 98}
-        cls.B2 = BaseModel(**cls.dictionary3)
+        cls.B2 = BaseModel(** cls.B1.to_dict())
 
     def test_kwargs_not_exist(self):
         """Test if attributes not present in kwargs are set"""
@@ -73,9 +71,9 @@ class TestBaseModelKwargsValidation(unittest.TestCase):
 
     def test_kwargs_exist(self):
         """Test if attributes in kwargs are set"""
-        self.assertIn('__class__', self.B2.__dict__)
-        self.assertIn('name', self.B2.__dict__)
-        self.assertIn('number', self.B2.__dict__)
+        self.assertNotIn('__class__', self.B2.__dict__)
+        self.assertNotIn('name', self.B2.__dict__)
+        self.assertNotIn('number', self.B2.__dict__)
         self.assertIn('id', self.B2.__dict__)
         self.assertIn('created_at', self.B2.__dict__)
         self.assertIn('updated_at', self.B2.__dict__)

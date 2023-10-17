@@ -17,11 +17,10 @@ class BaseModel:
             #     if (k == "created_at" or k == "updated_at"):
             #         setattr(self, k,
             #                 datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f"))
-            #     elif (k != "__class__"):
             #         setattr(self, k, v)
                 if k == "created_at" or k == "updated_at":
                     self.__dict__[k] = datetime.strptime(v, format_iso)
-                else:
+                elif (k != "__class__"):
                     self.__dict__[k] = v
         else:
             from models import storage
