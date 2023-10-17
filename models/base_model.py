@@ -37,18 +37,18 @@ class BaseModel:
     def to_dict(self):
         """ returns a dictionary containing all
         keys/values of __dict__ of the instance"""
-        # instance_dict = {'__class__': self.__class__.__name__}
-        # for k, v in self.__dict__.items():
-        #     if (k == 'created_at' or k == 'updated_at'):
-        #         instance_dict[k] = v.isoformat()
-        #     else:
-        #         instance_dict[k] = v
-        # return instance_dict
-        instance_dict = self.__dict__.copy()
-        instance_dict["created_at"] = self.created_at.isoformat()
-        instance_dict["updated_at"] = self.updated_at.isoformat()
-        instance_dict["__class__"] = self.__class__.__name__
+        instance_dict = {'__class__': self.__class__.__name__}
+        for k, v in self.__dict__.items():
+            if (k == 'created_at' or k == 'updated_at'):
+                instance_dict[k] = v.isoformat()
+            else:
+                instance_dict[k] = v
         return instance_dict
+        # instance_dict = self.__dict__.copy()
+        # instance_dict["created_at"] = self.created_at.isoformat()
+        # instance_dict["updated_at"] = self.updated_at.isoformat()
+        # instance_dict["__class__"] = self.__class__.__name__
+        # return instance_dict
 
     def __str__(self):
         """returns the object data"""
