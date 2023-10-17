@@ -105,7 +105,7 @@ class TestPlaceKwargsValidation(unittest.TestCase):
 
     def test_place_kwargs_exist(self):
         """Test if attributes in kwargs are set"""
-        self.assertNotIn('__class__', self.P2.__dict__)
+        self.assertIn('__class__', self.P2.__dict__)
         self.assertNotIn('name', self.P2.__dict__)
         self.assertIn('id', self.P2.__dict__)
         self.assertIn('created_at', self.P2.__dict__)

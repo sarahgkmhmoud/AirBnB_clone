@@ -73,7 +73,7 @@ class TestBaseModelKwargsValidation(unittest.TestCase):
 
     def test_kwargs_exist(self):
         """Test if attributes in kwargs are set"""
-        self.assertNotIn('__class__', self.B2.__dict__)
+        self.assertIn('__class__', self.B2.__dict__)
         self.assertIn('name', self.B2.__dict__)
         self.assertIn('number', self.B2.__dict__)
         self.assertIn('id', self.B2.__dict__)

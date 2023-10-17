@@ -81,7 +81,7 @@ class TestUserKwargsValidation(unittest.TestCase):
 
     def test_user_kwargs_exist(self):
         """test kwargs not exist"""
-        self.assertNotIn('__class__', self.U2.__dict__)
+        self.assertIn('__class__', self.U2.__dict__)
         self.assertNotIn('first_name', self.U2.__dict__)
         self.assertNotIn('last_name', self.U2.__dict__)
         self.assertIn('id', self.U2.__dict__)

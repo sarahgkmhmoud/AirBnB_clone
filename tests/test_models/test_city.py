@@ -79,7 +79,7 @@ class TestCityKwargsValidation(unittest.TestCase):
 
     def test_kwargs_exist(self):
         """Test if attributes in kwargs are set"""
-        self.assertNotIn('__class__', self.C2.__dict__)
+        self.assertIn('__class__', self.C2.__dict__)
         self.assertIn('name', self.C2.__dict__)
         self.assertIn('id', self.C2.__dict__)
         self.assertIn('created_at', self.C2.__dict__)

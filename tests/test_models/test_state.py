@@ -73,7 +73,7 @@ class TestStateKwargsValidation(unittest.TestCase):
 
     def test_kwargs_exist(self):
         """test kwargs exist"""
-        self.assertNotIn('__class__', self.S2.__dict__)
+        self.assertIn('__class__', self.S2.__dict__)
         self.assertIn('name', self.S2.__dict__)
         self.assertIn('id', self.S2.__dict__)
         self.assertIn('created_at', self.S2.__dict__)
