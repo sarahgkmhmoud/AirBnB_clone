@@ -1,15 +1,14 @@
 #!/usr/bin/python3
 """Doc
 """
-from models.engine.file_storage import *
-from models.engine.file_storage import FileStorage
+from models.review import *
+from models.review import Review
 
 
-class FileStorage(FileStorage):
+class Review(Review):
     """Doc
     """
-
-    def reload(self):
-        """DOC
-        """
-        pass
+    place_id = None
+    user_id = None
+    text = None
+    
