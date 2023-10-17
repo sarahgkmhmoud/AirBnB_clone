@@ -209,7 +209,10 @@ class TestReviewDeserialization(unittest.TestCase):
         rv = Review(None)
         self.assertNotIn(None, rv.__dict__.values())
 
-
+    def test_to_dict_with_arg(self):
+        rv = Review()
+        with self.assertRaises(TypeError):
+            rv.to_dict(None)
 
 if __name__ == '__main__':
     """Calling the unit test"""
